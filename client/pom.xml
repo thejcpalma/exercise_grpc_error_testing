@@ -5,11 +5,11 @@
 
 	<parent>
 		<groupId>pt.tecnico.testing.C00</groupId>
-		<artifactId>Testing-local</artifactId>
+		<artifactId>Testing</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>client-local</artifactId>
+	<artifactId>client</artifactId>
 	<packaging>jar</packaging>
 	<name>${project.artifactId}</name>
 

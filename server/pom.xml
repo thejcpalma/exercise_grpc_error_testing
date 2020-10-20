@@ -7,11 +7,11 @@
 		T (Tagus); and your group number with two digits. Then delete this comment. -->
 	<parent>
 		<groupId>pt.tecnico.testing.C00</groupId>
-		<artifactId>Testing-local</artifactId>
+		<artifactId>Testing</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>server-local</artifactId>
+	<artifactId>server</artifactId>
 	<packaging>jar</packaging>
 	<name>${project.artifactId}</name>
 
