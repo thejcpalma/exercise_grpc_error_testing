@@ -1,14 +1,8 @@
 package pt.tecnico.testing;
 
-import java.io.IOException;
-
-import io.grpc.BindableService;
-import io.grpc.Server;
-import io.grpc.ServerBuilder;
-
 public class TestingServerApp {
 	
-	public static void main(String[] args)  throws IOException, InterruptedException {
+	public static void main(String[] args) {
 		System.out.println("Testing server");
 		
 		// receive and print arguments
@@ -17,26 +11,5 @@ public class TestingServerApp {
 			System.out.printf("arg[%d] = %s%n", i, args[i]);
 		}
 		
-		// check arguments
-		if (args.length < 1) {
-			System.err.println("Argument(s) missing!");
-			System.err.printf("Usage: java %s port%n", TestingServerImpl.class.getName());
-			return;
-		}
-
-		final int port = Integer.parseInt(args[0]);
-		final BindableService impl = new TestingServerImpl();
-
-		// Create a new server to listen on port
-		Server server = ServerBuilder.forPort(port).addService(impl).build();
-
-		// Start the server
-		server.start();
-
-		// Server threads are running in the background.
-		System.out.println("Server started");
-
-		// Do not exit the main thread. Wait until server is terminated.
-		server.awaitTermination();
 	}	
 }

@@ -3,15 +3,3 @@
 //
 syntax = "proto3";
 package pt.tecnico.testing.grpc;
-
-message PingRequest {
-	string request = 1;
-}
-
-message PingResponse {
-	string response = 1;
-}
-
-service Control {
-	rpc CtrlPing(PingRequest) returns (PingResponse);
-}
