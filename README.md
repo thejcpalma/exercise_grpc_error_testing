@@ -6,9 +6,13 @@ This is the base project for the gRPC testing application, composed of three mod
 - [server](server/) - implementation of service
 - [client](client/) - invocation of service
 
-See the README for each module.  
-Start at contract, then go to server, and finally go to the client.
+To compile and install all modules:
 
+```
+mvn clean install -DskipTests
+```
+
+The integration tests are skipped because they require the servers to be running.
 
 ----
 
