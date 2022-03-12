@@ -8,10 +8,6 @@ import io.grpc.ManagedChannelBuilder;
 import pt.tecnico.grpc.BankingServiceGrpc;
 
 import pt.tecnico.grpc.Banking.RegisterRequest;
-import pt.tecnico.grpc.Banking.RegisterResponse;
-import pt.tecnico.grpc.Banking.ConsultRequest;
-import pt.tecnico.grpc.Banking.ConsultResponse;
-import pt.tecnico.grpc.Banking.Result;
 
 /** Client application main code. */
 public class BankingApp {
@@ -19,7 +15,6 @@ public class BankingApp {
 
 	private static final String EXIT_CMD = "exit";
 	private static final String REGISTER_CMD = "register";
-	private static final String CONSULT_CMD = "consult";
 
 	public static void main(String[] args) {
 		System.out.println(BankingApp.class.getSimpleName());
@@ -56,32 +51,16 @@ public class BankingApp {
 			// exit
 			if (EXIT_CMD.equals(line)) {
 				scanner.close();
-				System.exit(0);
 				break;
 			}
 
-			switch (line) {
-				case REGISTER_CMD:
-					System.out.printf("> Type username you want to register%n> ");
-					String client = scanner.nextLine();
-					System.out.printf("> What is this user's initial balance%n> ");
-					String balance = scanner.nextLine();
-					stub.register(RegisterRequest.newBuilder().setClient(client).setBalance(Integer.parseInt(balance)).build());
-					System.out.println("\n\n");
-					break;
-
-				case CONSULT_CMD:
-					System.out.printf("> Get balance of user: %n> ");
-					client = scanner.nextLine();
-					ConsultResponse responseConsult = stub.consult(ConsultRequest.newBuilder().setClient(client).build());
-
-					if (!responseConsult.getResult().equals(Result.SUCCESS)) {
-						System.out.println("Couldn't consult the balance of user: " + client + "\n\n");
-						break;
-					}
-
-					System.out.println("> User: " + client + " has " + responseConsult.getBalance() + " EUR\n\n");
-					break;
+			else if (REGISTER_CMD.equals(line)) {
+				System.out.printf("> Type username you want to register%n> ");
+				String client = scanner.nextLine();
+				System.out.printf("> What is this user's initial balance%n> ");
+				String balance = scanner.nextLine();
+				stub.register(RegisterRequest.newBuilder().setClient(client).setBalance(Integer.parseInt(balance)).build());
+				System.out.println("\n\n");
 			}
 		}
 	}

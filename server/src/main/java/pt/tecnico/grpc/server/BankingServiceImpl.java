@@ -16,12 +16,4 @@ public class BankingServiceImpl extends BankingServiceGrpc.BankingServiceImplBas
 		responseObserver.onNext(RegisterResponse.getDefaultInstance());
 		responseObserver.onCompleted();
 	}
-
-	@Override
-	public void consult(ConsultRequest request, StreamObserver<ConsultResponse> responseObserver) {
-		ConsultResponse response = bank.getBalance(request.getClient());
-
-		responseObserver.onNext(response);
-		responseObserver.onCompleted();
-	}
 }

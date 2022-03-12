@@ -1,31 +1,16 @@
 package pt.tecnico.grpc.server;
 
 import pt.tecnico.grpc.Banking.RegisterResponse;
-import pt.tecnico.grpc.Banking.ConsultResponse;
-import pt.tecnico.grpc.Banking.Result;
 
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 
 public class Bank {
+    private static final Logger LOGGER = Logger.getLogger(Bank.class.getName());
     ConcurrentHashMap<String, Integer> clients = new ConcurrentHashMap<>();
-
-    boolean isClient(String client) {
-        return clients.containsKey(client);
-    }
 
     public void register(String client, Integer balance) {
         clients.put(client, balance);
-        System.out.println(clients);
-    }
-
-    public ConsultResponse getBalance(String client) {
-        Integer balance = clients.get(client);
-        System.out.println(balance);
-
-        if (balance == null) {
-            return ConsultResponse.newBuilder().setResult(Result.FAILED).build();
-        }
-
-        return ConsultResponse.newBuilder().setBalance(balance).setResult(Result.SUCCESS).build();
+        LOGGER.info("User: " + client + " has been instantiated with balance: " + balance);
     }
 }

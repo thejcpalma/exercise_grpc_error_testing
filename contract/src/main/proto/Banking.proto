@@ -6,24 +6,9 @@ message RegisterRequest {
 	uint32 balance = 2;
 }
 
-message ConsultRequest {
-	string client = 1;
-}
-
-enum Result {
-	FAILED = 0;
-	SUCCESS = 1;
-}
-
 message RegisterResponse {
-}
-
-message ConsultResponse {
-		Result result = 1;
-		uint32 balance = 2;
 }
 
 service BankingService {
 	rpc register(RegisterRequest) returns (RegisterResponse);
-	rpc consult(ConsultRequest) returns (ConsultResponse);
 }
