@@ -9,6 +9,24 @@ message RegisterRequest {
 message RegisterResponse {
 }
 
+message ConsultRequest {
+	string client = 1;
+}
+
+message ConsultResponse {
+	int32 balance = 1;
+}
+
+message ZeroRequest {
+	string client = 1;
+}
+
+message ZeroResponse {
+	string success = 1;
+}
+
 service BankingService {
 	rpc register(RegisterRequest) returns (RegisterResponse);
+	rpc consult(ConsultRequest) returns (ConsultResponse);
+	rpc zero(ZeroRequest) returns (ZeroResponse);
 }

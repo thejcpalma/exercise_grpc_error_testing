@@ -7,7 +7,9 @@ import io.grpc.ManagedChannelBuilder;
 
 import pt.tecnico.grpc.BankingServiceGrpc;
 
-import pt.tecnico.grpc.Banking.RegisterRequest;
+import pt.tecnico.grpc.Banking.*;
+
+import io.grpc.StatusRuntimeException;
 
 /** Client application main code. */
 public class BankingApp {
@@ -15,6 +17,8 @@ public class BankingApp {
 
 	private static final String EXIT_CMD = "exit";
 	private static final String REGISTER_CMD = "register";
+	private static final String CONSULT_CMD = "consult";
+	private static final String ZERO_CMD = "zero";
 
 	public static void main(String[] args) {
 		System.out.println(BankingApp.class.getSimpleName());
@@ -59,8 +63,39 @@ public class BankingApp {
 				String client = scanner.nextLine();
 				System.out.printf("> What is this user's initial balance%n> ");
 				String balance = scanner.nextLine();
-				stub.register(RegisterRequest.newBuilder().setClient(client).setBalance(Integer.parseInt(balance)).build());
-				System.out.println("\n\n");
+				try {
+					stub.register(RegisterRequest.newBuilder().setClient(client).setBalance(Integer.parseInt(balance)).build());
+					System.out.println("\n\n");
+
+				} catch (StatusRuntimeException e) {
+					System.out.println("Caught exception with description: " + 
+						e.getStatus().getDescription());
+				}
+			}
+
+			else if (CONSULT_CMD.equals(line)) {
+				System.out.printf("> Type username you want to register%n> ");
+				String client = scanner.nextLine();
+				try {
+					ConsultResponse responseConsult = stub.consult(ConsultRequest.newBuilder().setClient(client).build());
+					System.out.println(responseConsult.getBalance());
+				} catch (StatusRuntimeException e) {
+					System.out.println("Caught exception with description: " + 
+						e.getStatus().getDescription());
+				}
+			}
+
+			else if (ZERO_CMD.equals(line)) {
+				System.out.printf("> Type username you want to zero account%n> ");
+				String client = scanner.nextLine();
+
+				try {
+					ZeroResponse zeroConsult = stub.zero(ZeroRequest.newBuilder().setClient(client).build());
+					System.out.println(zeroConsult.getSuccess());
+				} catch (StatusRuntimeException e) {
+					System.out.println("Caught exception with description: " + 
+						e.getStatus().getDescription());
+				}
 			}
 		}
 	}
